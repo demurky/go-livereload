@@ -274,6 +274,8 @@ func WithEventPath(path string) Option {
 func ReverseProxy(upstream *url.URL) http.Handler {
 	p := httputil.NewSingleHostReverseProxy(upstream)
 	p.Transport = retrier.New(500*time.Millisecond, 10*time.Second)
+	// TODO: Use Rewrite instead of the deprecated Director.
+	// https://go.dev/doc/go1.26#nethttphttputilpkgnethttphttputil
 	origDirector := p.Director
 	p.Director = func(req *http.Request) {
 		origDirector(req)
