@@ -78,5 +78,10 @@ func (h *Handler) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 }
 
 func event(eventType, data string) string {
-	return fmt.Sprintf("event: %s\ndata: %s\n\n", eventType, data)
+	return fmt.Sprintf(""+
+		"event: %s\n"+
+		"data: %s\n\n",
+		eventType,
+		data,
+	)
 }
