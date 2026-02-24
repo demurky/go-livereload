@@ -35,6 +35,7 @@ func (h *Handler) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 
 	flusher, ok := resp.(http.Flusher)
 	if !ok {
+		// TODO: Make this error more descriptive/indicative.
 		msg := "ability to flush responses unavailable"
 		http.Error(resp, msg, http.StatusInternalServerError)
 		return
@@ -58,6 +59,8 @@ func (h *Handler) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 
 		case <-req.Context().Done():
 			return
+
+		// TODO: What should we do with the following Write errors?
 
 		case ev := <-evChan:
 			_, err := resp.Write([]byte(ev))

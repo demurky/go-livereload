@@ -6,6 +6,9 @@
 // based on the response header.
 package resprouter
 
+// TODO: This package could use a little refactoring,
+// simplification, and documentation.
+
 import (
 	"bytes"
 	"io"

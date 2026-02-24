@@ -61,6 +61,12 @@ func New[T any]() *PubSub[T] {
 			case msg := <-msg:
 				wg := new(sync.WaitGroup)
 				wg.Add(len(subs))
+				// TODO: The following loop can be optimized:
+				// Instead of spawning a ton of goroutines right away,
+				// go sequentially and try to send the message.
+				// Only if you hit a blockage, switch to the goroutine way
+				// for the rest of the loop.
+				// This solution can even be abstracted.
 				for sub := range subs {
 					go func() {
 						defer wg.Done()
